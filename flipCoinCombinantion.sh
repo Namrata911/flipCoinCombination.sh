@@ -59,3 +59,62 @@ for key in ${!doublet[@]}
 do
    echo "Win Percentage for doublet combination $key is ${doublet[$key]}"
 done
+
+echo "Flipping Three coins now "
+declare -A triplet
+HHH=0
+HHT=0
+HTH=0
+THH=0
+TTT=0
+TTH=0
+THT=0
+HTT=0
+for step in {1..20}
+do
+   flipCoin1=$(( RANDOM%2 ))
+   flipCoin2=$(( RANDOM%2 ))
+	flipCoin3=$(( RANDOM%2 ))
+   combination=$flipCoin1$flipCoin2$flipCoin3
+   case $combination in
+   111)
+      HHH=$(( $HHH+1 ))
+   ;;
+   110)
+      HHT=$(( $HHT+1 ))
+   ;;
+   101)
+      HTH=$(( $HTH+1 ))
+   ;;
+   011)
+      THH=$(( $THH+1 ))
+   ;;
+	000)
+		TTT=$(( $TTT+1 ))
+	;;
+	001)
+		TTH=$(( $TTH+1 ))
+	;;
+	010)
+		THT=$(( $THT+1 ))
+	;;
+	100)
+		HTT=$(( $HTT+1 ))
+	;;
+   esac
+done
+
+triplet["HHH"]=$(( ($HHH*100)/20 ))
+triplet["HHT"]=$(( ($HHT*100)/20 ))
+triplet["HTH"]=$(( ($HTH*100)/20 ))
+triplet["THH"]=$(( ($THH*100)/20 ))
+triplet["TTT"]=$(( ($TTT*100)/20 ))
+triplet["TTH"]=$(( ($TTH*100)/20 ))
+triplet["THT"]=$(( ($THT*100)/20 ))
+triplet["HTT"]=$(( ($HTT*100)/20 ))
+
+
+for key in ${!triplet[@]}
+do
+   echo "Win Percentage for triplet combination $key is ${triplet[$key]}"
+done
