@@ -1,5 +1,6 @@
 #!/bin/bash
 declare -A singlet
+declare -A combined
 H=0
 T=0
 for step in {1..20}
@@ -21,6 +22,7 @@ singlet["T"]=$(( ($T*100)/20 ))
 for key in ${!singlet[@]}
 do
 	echo "Win Percentage for singlet combination $key is ${singlet[$key]}"
+	combined[$key]=${singlet[$key]}
 done
 
 echo "Flipping Two coins now "
@@ -58,6 +60,7 @@ doublet["TT"]=$(( ($TT*100)/20 ))
 for key in ${!doublet[@]}
 do
    echo "Win Percentage for doublet combination $key is ${doublet[$key]}"
+	 combined[$key]=${doublet[$key]}
 done
 
 echo "Flipping Three coins now "
@@ -117,4 +120,13 @@ triplet["HTT"]=$(( ($HTT*100)/20 ))
 for key in ${!triplet[@]}
 do
    echo "Win Percentage for triplet combination $key is ${triplet[$key]}"
+	 combined[$key]=${triplet[$key]}
 done
+
+echo "Sorted all combinations..."
+
+for key in ${!combined[@]}
+do
+   echo $key '-' ${combined[$key]}
+done | sort -n -k3
+
